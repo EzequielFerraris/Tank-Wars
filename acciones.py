@@ -18,6 +18,7 @@ def dibujar(pantalla:object, jugador:object, lista_de_enemigos:object, contador:
     pantalla.fill((0, 0, 0))
 
     jugador.dibujar(pantalla)
+
     for enemigo in lista_de_enemigos:
         enemigo.dibujar(pantalla)
 
@@ -58,7 +59,7 @@ def comportamiento_contador(contador:object, jugador:object)->None:
 
 #CHEQUEAR SI SE DAN LAS CONDICIONES DE FINALIZACION
 def chequeo_final(jugador:object, lista_enemigos:list, pantalla:object, contador:object)->bool:
-    if jugador.visible < 1:
+    if jugador.visible < 1 or contador.tiempo < 1:
     
         #INSERTO PUNTAJE EN TABLA
         scores.insertar_puntajes(contador.nombre, contador.puntaje)

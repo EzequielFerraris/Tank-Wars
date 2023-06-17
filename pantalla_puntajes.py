@@ -30,12 +30,15 @@ def pantalla_puntajes(pantalla:object, contador:object):
             text = FUENTE_SCORE.render(f'#{index+1}-{resultado[1]}..........{resultado[2]}', 1, ROJO)
             pantalla.blit(text, (64*6, 50*index + 150))
         
+
+        titulo2 = FUENTE_TITULO_SCORE.render('PRESS ANY KEY TO EXIT', 1, AMARILLO)
+        pantalla.blit(titulo2, ((64*8.5 - (titulo2.get_width()/2)), 64*9))
+
         pygame.display.update()
-
-        pygame.time.delay(200)
-
+        pygame.time.delay(100)
+        
         escape_button = pygame.key.get_pressed()
-        if escape_button[pygame.K_ESCAPE]:
+        if True in escape_button:
             lapso_scores = False
             pygame.quit()
             sys.exit

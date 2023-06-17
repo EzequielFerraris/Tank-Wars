@@ -36,14 +36,20 @@ def pedir_top_puntajes()->list:
         return lista
     
     
-def eliminar_puntajes()->None:
-    lista = pedir_top_puntajes(11)
-    if len(lista) > 10:
-        puntaje_minimo = lista[9][2]
-        with sqlite3.connect("bd_puntajes.db") as conexion:
-            try:
-                cursor = conexion.execute("delete * from puntajes where puntaje < ?", (puntaje_minimo))
-            except:
-                print("Error al borrar registros")
-    
+def limpiar_tabla()->None:
+    with sqlite3.connect("bd_puntajes.db") as conexion:
+        try:
 
+            cursor = conexion.execute("select * from puntajes order by puntaje desc")
+            lista = cursor.fetchall()
+            if len(lista) > 10:
+                conexion.execute("delete from puntajes")
+                for element,index in enumerate(lista):
+                    if index == 10:
+                        break
+                    conexion.execute("insert into puntajes(nombre,puntaje) values (?,?)", (element[1], element[2])) 
+                    conexion.commit()
+        except:
+            print("Error de registros")
+            lista = []
+        

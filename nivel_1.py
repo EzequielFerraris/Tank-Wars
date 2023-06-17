@@ -52,6 +52,11 @@ def nivel_1(pantalla_del_juego:object, contador:object)->None:
     lista_de_enemigos = [enemigo_1, enemigo_2]
     lista_de_objetos_chocables = [enemigo_1, enemigo_2, jugador_1] + lista_obstaculos
 
+    #TIEMPO
+    RELOJ = pygame.time.Clock() 
+    tiempo_actual = 0
+    inicio_del_nivel = 0
+
     nivel_1 = True
 
     #LOOP PRINCIPAL
@@ -63,10 +68,20 @@ def nivel_1(pantalla_del_juego:object, contador:object)->None:
                 nivel_1 = False
                 pygame.quit()
                 sys.exit()
+        
+        #TIEMPO DEL JUEGO
+        if inicio_del_nivel == 0:
+            inicio_del_nivel = pygame.time.get_ticks()
 
+        tiempo_actual = pygame.time.get_ticks()
+        tiempo_mostrado = tiempo_actual - inicio_del_nivel
+        contador.tiempo = tiempo_mostrado
+        
+        #MANTENER LAS LISTAS ACTUALIZADAS (PARA LAS COLISIONES)
         for elemento in lista_de_objetos_chocables:
             elemento.lista_otros_objetos = lista_de_objetos_chocables
 
+        #COMPORTAMIENTOS
         acciones.comportamiento_enemigos(lista_de_enemigos) #HACE QUE LOS ENEMIGOS REALICEN SUS ACCIONES
         acciones.comportamiento_jugador(jugador_1) #HACE QUE EL JUGADOR REALICE SUS ACCIONES
         acciones.comportamiento_obstaculos(lista_obstaculos) #OBSTACULOS
@@ -94,5 +109,10 @@ def nivel_1(pantalla_del_juego:object, contador:object)->None:
         if keys[pygame.K_SPACE] and len(jugador_1.proyectiles) < jugador_1.maximo_proyectiles_simultaneos: 
             jugador_1.proyectiles = Proyectil(jugador_1)
     
+        #DIBUJAR PANTALLA Y OBJETOS
         acciones.dibujar(pantalla_del_juego, jugador_1, lista_de_enemigos, contador, lista_obstaculos)
-        nivel_1 = acciones.chequeo_final(jugador_1, lista_de_enemigos, pantalla_del_juego, contador) #CHEQUEA CONDICIONES DE TERMINACION DEL JUEGO
+
+        RELOJ.tick(60)
+
+        #CHEQUEA CONDICIONES DE TERMINACION DEL JUEGO
+        nivel_1 = acciones.chequeo_final(jugador_1, lista_de_enemigos, pantalla_del_juego, contador) 

@@ -65,6 +65,11 @@ def nivel_2(pantalla_del_juego:object, contador:object)->None:
     lista_de_enemigos = [enemigo_1, enemigo_2, enemigo_3]
     lista_de_objetos_chocables = [enemigo_1, enemigo_2, enemigo_3, jugador_1] + lista_obstaculos
 
+    #TIEMPO
+    RELOJ = pygame.time.Clock() 
+    tiempo_actual = 0
+    inicio_del_nivel = 0
+
     nivel_2 = True
 
     #LOOP PRINCIPAL
@@ -76,6 +81,14 @@ def nivel_2(pantalla_del_juego:object, contador:object)->None:
                 nivel_2 = False
                 pygame.quit()
                 sys.exit()
+
+        #TIEMPO DEL JUEGO
+        if inicio_del_nivel == 0:
+            inicio_del_nivel = pygame.time.get_ticks()
+
+        tiempo_actual = pygame.time.get_ticks()
+        tiempo_mostrado = tiempo_actual - inicio_del_nivel
+        contador.tiempo = tiempo_mostrado
 
         for elemento in lista_de_objetos_chocables:
             elemento.lista_otros_objetos = lista_de_objetos_chocables
@@ -108,5 +121,6 @@ def nivel_2(pantalla_del_juego:object, contador:object)->None:
             jugador_1.proyectiles = Proyectil(jugador_1)
     
         acciones.dibujar(pantalla_del_juego, jugador_1, lista_de_enemigos, contador, lista_obstaculos)
+        RELOJ.tick(60)
         nivel_2 = acciones.chequeo_final(jugador_1, lista_de_enemigos, pantalla_del_juego, contador) #CHEQUEA CONDICIONES DE TERMINACION DEL JUEGO
     
