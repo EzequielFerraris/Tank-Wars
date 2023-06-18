@@ -40,8 +40,10 @@ def pantalla_entre_niveles(pantalla:object, contador:object)->None:
 
         pantalla.blit(text, (64*8.5 - (text.get_width()/2),200))
         #pantalla.blit(text2, (64*8.5 - (text2.get_width()/2),350))
-        if tiempo_mostrado > 3000:
+        if tiempo_mostrado > 2000:
             lapso = False
+            break
+            
 
         RELOJ.tick(60)
         

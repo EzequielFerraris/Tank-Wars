@@ -19,6 +19,17 @@ class Obstaculo(): #CLASE 1
         self.__vidas = 3
         self.__visible = 1
 
+        #EXPLOSION
+        self.__contador = 0 
+        self.__indice = 0
+        self.__explosion = []
+        self.__imagenes_explosion =["Imagenes/Explosion_obstaculo/Explosion_A.png", "Imagenes/Explosion_obstaculo/Explosion_B.png", "Imagenes/Explosion_obstaculo/Explosion_C.png", "Imagenes/Explosion_obstaculo/Explosion_D.png", "Imagenes/Explosion_obstaculo/Explosion_E.png", "Imagenes/Explosion_obstaculo/Explosion_F.png", "Imagenes/Explosion_obstaculo/Explosion_G.png", "Imagenes/Explosion_obstaculo/Explosion_H.png"]
+        
+        for imagen in self.imagenes_explosion:
+            nueva_imagen = pygame.image.load(imagen).convert_alpha()
+            nueva_imagen = pygame.transform.scale(nueva_imagen, (64,64))
+            self.explosion.append(nueva_imagen)
+
     @property
     def nombre(self)->str:
         return self.__nombre
@@ -97,14 +108,55 @@ class Obstaculo(): #CLASE 1
     def imagen_mostrada(self, nueva_imagen_mostrada)->None:
         self.__imagen_mostrada = nueva_imagen_mostrada
     
+    #EXPLOSIONES
+    @property
+    def contador(self)->int:
+        return self.__contador
+
+    @contador.setter
+    def contador(self, nuevo_contador:int)->None:
+        self.__contador = nuevo_contador
+
+    @property
+    def indice(self)->int:
+        return self.__indice
+
+    @indice.setter
+    def indice(self, nuevo_indice:int)->None:
+        self.__indice = nuevo_indice
+
+    @property
+    def explosion(self)->int:
+        return self.__explosion
+
+    @explosion.setter
+    def explosion(self, nueva_explosion:int)->None:
+        self.__explosion = nueva_explosion
+
+    @property
+    def imagenes_explosion(self)->int:
+        return self.__imagenes_explosion
+
     #METODOS ------------------
     #DIBUJA EL OBSTACULO
     def dibujar(self, pantalla): 
-        pantalla.blit(self.imagen_mostrada, (self.x, self.y))
-
+        if self.vidas > 0:
+            pantalla.blit(self.imagen_mostrada, (self.x, self.y))
+        else:
+            velocidad_explosion = 1
+            self.contador += 1
+            if self.contador >= velocidad_explosion and self.indice < len(self.explosion) - 1:
+                self.contador = 0
+                self.indice += 1
+                self.imagen_mostrada = self.explosion[self.indice]
+                pantalla.blit(self.imagen_mostrada, (self.x, self.y))
+            if self.indice >= len(self.explosion) - 1 and self.contador >= velocidad_explosion:
+                self.visible = 0
+    
     #ALCANZADO POR UN PROYECTIL
     def recibir_impacto(self):
         if self.nombre != 'muro':    
             self.vidas -= 1
-            if self.vidas == 0:
-                self.visible = 0
+                
+
+

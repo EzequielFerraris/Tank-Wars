@@ -38,6 +38,17 @@ class Tanque(): #CLASE 1
         self.__maximo_proyectiles_simultaneos = 8
         self.__proyectiles = []
     
+        #EXPLOSION
+        self.__contador = 0 
+        self.__indice = 0
+        self.__explosion = []
+        self.__imagenes_explosion =["Imagenes/Explosion_tanque/exp_1.png", "Imagenes/Explosion_tanque/exp_2.png", "Imagenes/Explosion_tanque/exp_3.png", "Imagenes/Explosion_tanque/exp_4.png", "Imagenes/Explosion_tanque/exp_5.png"]
+        
+        for imagen in self.imagenes_explosion:
+            nueva_imagen = pygame.image.load(imagen).convert_alpha()
+            nueva_imagen = pygame.transform.scale(nueva_imagen, (64,64))
+            self.explosion.append(nueva_imagen)
+
     #SETTERS Y GETTERS
     #NOMBRE Y COORDENADAS
     @property
@@ -236,9 +247,39 @@ class Tanque(): #CLASE 1
     def imagen_izquierda(self, nueva_imagen_izquierda)->None:
         self.__imagen_izquierda = nueva_imagen_izquierda
 
+    #EXPLOSIONES
+    @property
+    def contador(self)->int:
+        return self.__contador
+
+    @contador.setter
+    def contador(self, nuevo_contador:int)->None:
+        self.__contador = nuevo_contador
+
+    @property
+    def indice(self)->int:
+        return self.__indice
+
+    @indice.setter
+    def indice(self, nuevo_indice:int)->None:
+        self.__indice = nuevo_indice
+
+    @property
+    def explosion(self)->int:
+        return self.__explosion
+
+    @explosion.setter
+    def explosion(self, nueva_explosion:int)->None:
+        self.__explosion = nueva_explosion
+
+    @property
+    def imagenes_explosion(self)->int:
+        return self.__imagenes_explosion
+
     #METODOS ------------------
     #DIBUJA EL TANQUE
-    def dibujar(self, pantalla): 
+    def dibujar(self, pantalla):
+         
         if self.direccion == 'arriba':
             self.imagen_mostrada = self.imagen_arriba
         elif self.direccion == 'abajo':
@@ -314,12 +355,14 @@ class Tanque(): #CLASE 1
                         self.proyectiles.pop(self.proyectiles.index(proyectil))    
        
             if proyectil.eje == 'x':
-                if proyectil.x < (64*17) and proyectil.x > 0:
+                if proyectil.x_rect < (64*17) and proyectil.x_rect > 0:
+                    proyectil.x_rect += proyectil.velocidad
                     proyectil.x += proyectil.velocidad  #MUEVE EL PROYECTIL A SU VELOCIDAD EN EL EJE X
                 else:
                     self.proyectiles.pop(self.proyectiles.index(proyectil))  #LO REMUEVE SI SALE DE LA PANTALLA
             else:
-                if proyectil.y < (64*11) and proyectil.y > 0:
-                    proyectil.y += proyectil.velocidad  #MUEVE EL PROYECTIL A SU VELOCIDAD EN EL EJE Y
+                if proyectil.y_rect < (64*11) and proyectil.y_rect > 0:
+                    proyectil.y_rect += proyectil.velocidad  #MUEVE EL PROYECTIL A SU VELOCIDAD EN EL EJE Y
+                    proyectil.y += proyectil.velocidad 
                 else:
                     self.proyectiles.pop(self.proyectiles.index(proyectil))  #LO REMUEVE SI SALE DE LA PANTALLA

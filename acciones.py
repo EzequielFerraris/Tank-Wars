@@ -49,6 +49,8 @@ def comportamiento_jugador(jugador):
 #FUNCION COMPORTAMIENTO OBSTACULOS
 def comportamiento_obstaculos(lista_obstaculos:list)->None:
     for obstaculo in lista_obstaculos:
+        if obstaculo.vidas == 0:
+            obstaculo.rect_principal = pygame.Rect(obstaculo.x-2, obstaculo.y-2, 0, 0)
         if obstaculo.visible == 0:
             lista_obstaculos.pop(lista_obstaculos.index(obstaculo))
 

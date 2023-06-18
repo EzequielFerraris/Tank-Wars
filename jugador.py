@@ -8,9 +8,9 @@ class Jugador(Tanque):
         self.maximo_proyectiles_simultaneos = 5
         
     #IMAGENES:
-        self.imagen_arriba = pygame.image.load('Imagenes/Tanke_arriba.png')
-        self.imagen_abajo = pygame.image.load('Imagenes/Tanke_abajo.png')
-        self.imagen_derecha = pygame.image.load('Imagenes/Tanke_der.png')
-        self.imagen_izquierda = pygame.image.load('Imagenes/Tanke_izq.png')
+        self.imagen_arriba = pygame.image.load('Imagenes/Tanke_arriba.png').convert_alpha()
+        self.imagen_abajo = pygame.image.load('Imagenes/Tanke_abajo.png').convert_alpha()
+        self.imagen_derecha = pygame.image.load('Imagenes/Tanke_der.png').convert_alpha()
+        self.imagen_izquierda = pygame.image.load('Imagenes/Tanke_izq.png').convert_alpha()
 
 

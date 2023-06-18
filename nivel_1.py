@@ -111,6 +111,7 @@ def nivel_1(pantalla_del_juego:object, contador:object)->None:
     
         #DIBUJAR PANTALLA Y OBJETOS
         acciones.dibujar(pantalla_del_juego, jugador_1, lista_de_enemigos, contador, lista_obstaculos)
+       
 
         RELOJ.tick(60)
 

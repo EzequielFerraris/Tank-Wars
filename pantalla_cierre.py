@@ -45,6 +45,7 @@ def pantalla_de_cierre(resultado:str, pantalla:object, contador:object)->None:
         if enter_button[pygame.K_RETURN]:
             lapso = False
             pantalla_puntajes(pantalla, contador)
+            break
 
     
     
