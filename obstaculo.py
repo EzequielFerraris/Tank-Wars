@@ -136,7 +136,7 @@ class Obstaculo(): #CLASE 1
     @property
     def imagenes_explosion(self)->int:
         return self.__imagenes_explosion
-
+ 
     #METODOS ------------------
     #DIBUJA EL OBSTACULO
     def dibujar(self, pantalla): 

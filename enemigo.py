@@ -57,28 +57,29 @@ class Enemigo(Tanque):
         self.valor_random = 0
  
     def mover(self)->None:
-        if self.cambiar_direccion >= 6:
-            self.movimiento_aleatorio()
-        if self.contador_de_pasos >= 5:
-            self.generador_de_proyectiles()
-            self.contador_de_pasos = 0
+        if self.vidas > 0:
+            if self.cambiar_direccion >= 6:
+                self.movimiento_aleatorio()
+            if self.contador_de_pasos >= 5:
+                self.generador_de_proyectiles()
+                self.contador_de_pasos = 0
 
-        if self.direccion == 'abajo' and not self.chocar('abajo'):
-            if (self.y + self.alto) < (64*10) : #EVITA QUE SE VAYA DE LA PANTALLA HACIA ABAJO
-                self.y += self.velocidad
-        elif self.direccion == 'arriba' and not self.chocar('arriba'):
-            if self.y > 40: #EVITA QUE SE VAYA DE LA PANTALLA HACIA ARRIBA
-                self.y -= self.velocidad
-        elif self.direccion == 'derecha' and not self.chocar('derecha'):
-            if (self.x + self.ancho) < (64*16): #EVITA QUE SE VAYA DE LA PANTALLA HACIA LA DERECHA
-                self.x += self.velocidad
-        elif self.direccion == 'izquierda' and not self.chocar('izquierda'):
-            if self.x > 10: #EVITA QUE SE VAYA DE LA PANTALLA HACIA LA IZQUIERDA
-                self.x -= self.velocidad
+            if self.direccion == 'abajo' and not self.chocar('abajo'):
+                if (self.y + self.alto) < (64*10) : #EVITA QUE SE VAYA DE LA PANTALLA HACIA ABAJO
+                    self.y += self.velocidad
+            elif self.direccion == 'arriba' and not self.chocar('arriba'):
+                if self.y > 40: #EVITA QUE SE VAYA DE LA PANTALLA HACIA ARRIBA
+                    self.y -= self.velocidad
+            elif self.direccion == 'derecha' and not self.chocar('derecha'):
+                if (self.x + self.ancho) < (64*16): #EVITA QUE SE VAYA DE LA PANTALLA HACIA LA DERECHA
+                    self.x += self.velocidad
+            elif self.direccion == 'izquierda' and not self.chocar('izquierda'):
+                if self.x > 10: #EVITA QUE SE VAYA DE LA PANTALLA HACIA LA IZQUIERDA
+                    self.x -= self.velocidad
 
-        self.cambiar_direccion += 1
-        self.contador_de_pasos += 1
+            self.cambiar_direccion += 1
+            self.contador_de_pasos += 1
                 
     def generador_de_proyectiles(self):
-        if len(self.proyectiles) < self.maximo_proyectiles_simultaneos:
+        if self.vidas > 0 and len(self.proyectiles) < self.maximo_proyectiles_simultaneos:
             self.proyectiles = Proyectil(self)

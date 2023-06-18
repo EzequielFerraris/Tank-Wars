@@ -279,43 +279,55 @@ class Tanque(): #CLASE 1
     #METODOS ------------------
     #DIBUJA EL TANQUE
     def dibujar(self, pantalla):
-         
-        if self.direccion == 'arriba':
-            self.imagen_mostrada = self.imagen_arriba
-        elif self.direccion == 'abajo':
-            self.imagen_mostrada = self.imagen_abajo
-        elif self.direccion == 'derecha':
-            self.imagen_mostrada = self.imagen_derecha
-        elif self.direccion == 'izquierda':
-            self.imagen_mostrada = self.imagen_izquierda
+        #SI LAS VIDAS SON MAYORES A 0, DIBUJA EL TANQUE Y ACTUALIZA EL RECTANGULO
+        if self.vidas > 0: 
+            if self.direccion == 'arriba':
+                self.imagen_mostrada = self.imagen_arriba
+            elif self.direccion == 'abajo':
+                self.imagen_mostrada = self.imagen_abajo
+            elif self.direccion == 'derecha':
+                self.imagen_mostrada = self.imagen_derecha
+            elif self.direccion == 'izquierda':
+                self.imagen_mostrada = self.imagen_izquierda
 
-        pantalla.blit(self.imagen_mostrada, (self.x, self.y))
-        
-        #MARCA Y CREA EL AREA DONDE PUEDE SER ATACADO
-        if self.direccion == 'arriba' or self.direccion == 'abajo':
+            pantalla.blit(self.imagen_mostrada, (self.x, self.y))
+            
+            #MARCA Y CREA EL AREA DONDE PUEDE SER ATACADO
+            if self.direccion == 'arriba' or self.direccion == 'abajo':
 
-            self.rect_principal = pygame.Rect(self.x + 10, self.y, 44, 63) 
-            #pygame.draw.rect(pantalla, (255,0,0), rect_principal, 2)                    
-            self.rect_arriba = pygame.Rect(self.x + 10, self.y, 44, 1)
-            #pygame.draw.rect(pantalla, (255,0,0), self.rect_arriba, 2)
-            self.rect_abajo = pygame.Rect(self.x + 10, self.y + 63, 44, 1)
-            #pygame.draw.rect(pantalla, (255,0,0), self.rect_abajo, 2)
-            self.rect_derecha = pygame.Rect(self.x + 54, self.y, 1, 63)
-            #pygame.draw.rect(pantalla, (255,0,0), self.rect_derecha, 2)
-            self.rect_izquierda = pygame.Rect(self.x + 10, self.y, 1, 63)
-            # pygame.draw.rect(pantalla, (255,0,0), self.rect_izquierda, 2)      
+                self.rect_principal = pygame.Rect(self.x + 10, self.y, 44, 63) 
+                #pygame.draw.rect(pantalla, (255,0,0), rect_principal, 2)                    
+                self.rect_arriba = pygame.Rect(self.x + 10, self.y, 44, 1)
+                #pygame.draw.rect(pantalla, (255,0,0), self.rect_arriba, 2)
+                self.rect_abajo = pygame.Rect(self.x + 10, self.y + 63, 44, 1)
+                #pygame.draw.rect(pantalla, (255,0,0), self.rect_abajo, 2)
+                self.rect_derecha = pygame.Rect(self.x + 54, self.y, 1, 63)
+                #pygame.draw.rect(pantalla, (255,0,0), self.rect_derecha, 2)
+                self.rect_izquierda = pygame.Rect(self.x + 10, self.y, 1, 63)
+                # pygame.draw.rect(pantalla, (255,0,0), self.rect_izquierda, 2)      
+            else:
+                self.rect_principal = pygame.Rect(self.x, self.y + 10, 63, 44) 
+                #pygame.draw.rect(pantalla, (255,0,0), rect_principal, 2)
+                self.rect_arriba = pygame.Rect(self.x, self.y + 10, 63, 1)
+                #pygame.draw.rect(pantalla, (255,0,0), self.rect_arriba, 2)
+                self.rect_abajo = pygame.Rect(self.x, self.y + 54, 63, 1)
+                #pygame.draw.rect(pantalla, (255,0,0), self.rect_abajo, 2)
+                self.rect_derecha = pygame.Rect(self.x + 63, self.y + 10, 1, 44)
+                #pygame.draw.rect(pantalla, (255,0,0), self.rect_derecha, 2)
+                self.rect_izquierda = pygame.Rect(self.x, self.y + 10, 1, 44)
+                #pygame.draw.rect(pantalla, (255,0,0), self.rect_izquierda, 2)
+        #SI LAS VIDAS SON MENORES A 0, EXPLOSION        
         else:
-            self.rect_principal = pygame.Rect(self.x, self.y + 10, 63, 44) 
-            #pygame.draw.rect(pantalla, (255,0,0), rect_principal, 2)
-            self.rect_arriba = pygame.Rect(self.x, self.y + 10, 63, 1)
-            #pygame.draw.rect(pantalla, (255,0,0), self.rect_arriba, 2)
-            self.rect_abajo = pygame.Rect(self.x, self.y + 54, 63, 1)
-            #pygame.draw.rect(pantalla, (255,0,0), self.rect_abajo, 2)
-            self.rect_derecha = pygame.Rect(self.x + 63, self.y + 10, 1, 44)
-            #pygame.draw.rect(pantalla, (255,0,0), self.rect_derecha, 2)
-            self.rect_izquierda = pygame.Rect(self.x, self.y + 10, 1, 44)
-            #pygame.draw.rect(pantalla, (255,0,0), self.rect_izquierda, 2)
-             
+            velocidad_explosion = 1
+            self.contador += 1
+            if self.contador >= velocidad_explosion and self.indice < len(self.explosion) - 1:
+                self.contador = 0
+                self.indice += 1
+                self.imagen_mostrada = self.explosion[self.indice]
+                pantalla.blit(self.imagen_mostrada, (self.x, self.y))
+            if self.indice >= len(self.explosion) - 1 and self.contador >= velocidad_explosion:
+                self.visible = 0
+
     #CHEQUEA SI CHOCA
     def chocar(self, direccion:str)->bool:
         for elemento in self.lista_otros_objetos:
@@ -340,7 +352,7 @@ class Tanque(): #CLASE 1
         if self.puntaje > 0:
             self.puntaje -= 100
         if self.vidas < 1:
-            self.visible = 0
+            self.rect_principal = pygame.Rect(self.x + 10, self.y, 0, 0)
 
     #DISPARAR
     def disparar(self):
