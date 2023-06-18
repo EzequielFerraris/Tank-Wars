@@ -5,8 +5,9 @@ from pantalla_ingreso_nombre import pantalla_ingreso_nombre
 from nivel_1 import nivel_1
 from nivel_2 import nivel_2
 from nivel_3 import nivel_3
-from contador_vidas import Contador
+from pantalla_entre_niveles import pantalla_entre_niveles
 from pantalla_cierre import pantalla_de_cierre
+from contador_vidas import Contador
 
 pygame.init()
 #CREO LA BASE DE DATOS SI NO EXISTE
@@ -27,14 +28,15 @@ pantalla_inicio(pantalla_del_juego)
 nombre_jugador = pantalla_ingreso_nombre(pantalla_del_juego)
 
 #Creo el contador de vidas y puntos
-contador = Contador(3, 0, nombre_jugador, 6)
+contador = Contador(3, 0, nombre_jugador, 300)
 
 #NIVELES
+pantalla_entre_niveles(pantalla_del_juego, contador)
 nivel_1(pantalla_del_juego, contador)
-#nivel_2(pantalla_del_juego, contador)
-#nivel_3(pantalla_del_juego, contador)
+pantalla_entre_niveles(pantalla_del_juego, contador)
+nivel_2(pantalla_del_juego, contador)
+pantalla_entre_niveles(pantalla_del_juego, contador)
+nivel_3(pantalla_del_juego, contador)
 
-#INSERTO PUNTAJE EN TABLA
-scores.insertar_puntajes(contador.nombre, contador.puntaje)
 #PANTALLA FINAL
 pantalla_de_cierre('victoria', pantalla_del_juego, contador)

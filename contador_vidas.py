@@ -7,6 +7,7 @@ class Contador():
         self.__nombre = nombre
         self.__tiempo_maximo = tiempo_maximo
         self.__tiempo = 0
+        self.__nivel = 1
         self.__fuente_amarillo= tuple((255,255,0))
         self.__fuente_rojo= tuple((255,0,0))
         self.__fondo_color= tuple((51,51,51))
@@ -30,6 +31,14 @@ class Contador():
     @puntaje.setter
     def puntaje(self, nuevo_puntaje)->None:
         self.__puntaje = nuevo_puntaje
+
+    @property
+    def nivel(self)->object:
+        return self.__nivel
+    
+    @nivel.setter
+    def nivel(self, nuevo_nivel)->None:
+        self.__nivel = nuevo_nivel
 
     @property
     def tiempo_maximo(self)->object:
@@ -82,7 +91,7 @@ class Contador():
         vidas_y_puntos = self.fuente.render(f'Lives: {self.vidas}   Score: {self.puntaje}', 1, self.fuente_amarillo)
         #TIEMPO RESTANTE. ROJO SI QUEDA MENOS DE UN MINUTO
         if self.tiempo > 60:
-            tiempo = self.fuente.render(f'Time left: {str(self.tiempo//60).zfill(2)}:{str(self.tiempo%60).zfill(2)}', 1, self.fuente_amarillo)
+            tiempo = self.fuente.render(f'Time left: {str(self.tiempo//60)}:{str(self.tiempo%60).zfill(2)}', 1, self.fuente_amarillo)
         else:
             tiempo = self.fuente.render(f'Time left: {self.tiempo}', 1, self.fuente_rojo)
         #FUSIONAMOS CON EL FONDO

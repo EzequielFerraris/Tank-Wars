@@ -1,5 +1,6 @@
 import pygame
 import sys
+import scores
 from pantalla_puntajes import pantalla_puntajes
 
 pygame.init()
@@ -14,7 +15,8 @@ def pantalla_de_cierre(resultado:str, pantalla:object, contador:object)->None:
     lapso = True
     pantalla.fill((0, 0, 0))
     pygame.display.update()
-
+    #INSERTO PUNTAJE EN TABLA
+    scores.insertar_puntajes(contador.nombre, contador.puntaje)
     while lapso == True:
         pygame.time.delay(10)
             

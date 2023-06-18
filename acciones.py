@@ -60,14 +60,11 @@ def comportamiento_contador(contador:object, jugador:object)->None:
 #CHEQUEAR SI SE DAN LAS CONDICIONES DE FINALIZACION
 def chequeo_final(jugador:object, lista_enemigos:list, pantalla:object, contador:object)->bool:
     if jugador.visible < 1 or contador.tiempo < 1:
-    
-        #INSERTO PUNTAJE EN TABLA
-        scores.insertar_puntajes(contador.nombre, contador.puntaje)
-
         #PANTALLA FINAL
         pantalla_de_cierre('derrota', pantalla, contador)    
         return False
     elif len(lista_enemigos) < 1:
+        contador.nivel += 1
         return False
     else:
         return True
