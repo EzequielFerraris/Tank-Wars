@@ -11,10 +11,10 @@ class Contador():
         self.__fuente_amarillo= tuple((255,255,0))
         self.__fuente_rojo= tuple((255,0,0))
         self.__fondo_color= tuple((51,51,51))
-        self.__rect= pygame.Rect(0, 0, 18*64, 21)
+        self.__rect= pygame.Rect(0, 0, 18*64, 23)
         self.__vidas = 0 + vidas
         self.__puntaje = puntaje
-        self.__fuente = pygame.font.SysFont("Fonts/Trade Gothic LT Bold Condensed No. 20.ttf", 22)
+        self.__fuente = pygame.font.Font("Fonts/Trade Gothic LT Bold Condensed No. 20.ttf", 20)
         self.__spawneo = 1
 
     @property
@@ -104,7 +104,7 @@ class Contador():
         else:
             tiempo = self.fuente.render(f'Time left: {self.tiempo}', 1, self.fuente_rojo)
         #FUSIONAMOS CON EL FONDO
-        pantalla.blit(vidas_y_puntos, (900, 1))
+        pantalla.blit(vidas_y_puntos, (950, 1))
         pantalla.blit(nombre, (10, 1))
         pantalla.blit(tiempo, (64*9 - (tiempo.get_width()/2), 1))
     
