@@ -6,49 +6,76 @@ from proyectil import Proyectil
 from jugador import Jugador
 from ladrillo import Ladrillo
 from agua import Agua
+from muro import Muro
 from bosque import Bosque
 import acciones
+import sonidos
 
-def nivel_1(pantalla_del_juego:object, contador:object)->None:
-    #CREO AL JUGADOR Y LOS ENEMIGOS 
-    jugador_1 = Jugador(64*8, 64*9, 'jugador_1', 'arriba', contador.puntaje) #Crea al jugador
-    enemigo_1 = Enemigo((rd.randint(10, 270)), (rd.randint(20, 270)), 'enemigo_1', 'abajo')
-    enemigo_2 = Enemigo((rd.randint(700, 900)), (rd.randint(20, 270)), 'enemigo_2', 'abajo')
-
-    lista_obstaculos = []
-
-    for obstaculo in range(17):
+#DISEÑO DE LOS OBSTACULOS DEL NIVEL
+def crear_obstaculos(lista_obstaculos:list)->list:
+    for obstaculo in range(18):
         ladrillo = Ladrillo(64 * obstaculo, 300)
         lista_obstaculos.append(ladrillo)
-        if obstaculo < 2 or (obstaculo > 4 and obstaculo < 7) or (obstaculo > 9 and obstaculo < 12) or (obstaculo > 14):
+        if obstaculo < 3 or (obstaculo > 4 and obstaculo < 8) or (obstaculo > 9 and obstaculo < 13) or (obstaculo > 14):
             ladrillo2 = Ladrillo(64 * obstaculo, 400)
             lista_obstaculos.append(ladrillo2)
         else:
             agua = Agua(64 * obstaculo, 400)
             lista_obstaculos.append(agua)
     
-    for obstaculo in range(5):
-        ladrillo = Ladrillo(8*64, 64 * obstaculo)
-        lista_obstaculos.append(ladrillo)
+    for obstaculo in range(17):
+        muro = Muro(64 * obstaculo, 0)
+        lista_obstaculos.append(muro)
 
-    for obstaculo in range(4):
+    for obstaculo in range(7):
+        muro1 = Muro(0, (obstaculo*64))
+        muro2 = Muro(17*64, (obstaculo*64))
+        lista_obstaculos.append(muro1)
+        lista_obstaculos.append(muro2)
+
+    for obstaculo in range(5):
+        ladrillo = Ladrillo(7.5*64, 64 * obstaculo)
+        ladrillo2 = Ladrillo(9.5*64, 64 * obstaculo)
+        lista_obstaculos.append(ladrillo)
+        lista_obstaculos.append(ladrillo2)
+
+    for obstaculo in range(6):
         bosque = Bosque(0, obstaculo*64 + 464)
         bosque1 = Bosque(1*64, obstaculo*64 + 464)
         bosque2 = Bosque(2*64, obstaculo*64 + 464)
         bosque3 = Bosque(3*64, obstaculo*64 + 464)
+        bosque4= Bosque(4*64, obstaculo*64 + 464)
+
         lista_obstaculos.append(bosque)
         lista_obstaculos.append(bosque1)
         lista_obstaculos.append(bosque2)
         lista_obstaculos.append(bosque3)
-        bosque4 = Bosque(13*64, obstaculo*64 + 464)
-        bosque5 = Bosque(14*64, obstaculo*64 + 464)
-        bosque6 = Bosque(15*64, obstaculo*64 + 464)
-        bosque7 = Bosque(16*64, obstaculo*64 + 464)
         lista_obstaculos.append(bosque4)
+        
+        bosque5 = Bosque(13*64, obstaculo*64 + 464)
+        bosque6 = Bosque(14*64, obstaculo*64 + 464)
+        bosque7 = Bosque(15*64, obstaculo*64 + 464)
+        bosque8 = Bosque(16*64, obstaculo*64 + 464)
+        bosque9 = Bosque(17*64, obstaculo*64 + 464)
+       
         lista_obstaculos.append(bosque5)
         lista_obstaculos.append(bosque6)
         lista_obstaculos.append(bosque7)
+        lista_obstaculos.append(bosque8)
+        lista_obstaculos.append(bosque9)
 
+#NIVEL
+def nivel_1(pantalla_del_juego:object, contador:object)->None:
+    #CREO AL JUGADOR Y LOS ENEMIGOS 
+    jugador_1 = Jugador(64*8.5, 64*11, 'jugador_1', 'arriba', contador.puntaje) #Crea al jugador
+    enemigo_1 = Enemigo(4.5*64, 180, 'enemigo_1', 'abajo')
+    enemigo_2 = Enemigo(13.5*64, 180, 'enemigo_2', 'abajo')
+
+    #CREO LOS OBSTACULOS
+    lista_obstaculos = []
+    crear_obstaculos(lista_obstaculos)
+
+    #LISTAS
     lista_de_enemigos = [enemigo_1, enemigo_2]
     lista_de_objetos_chocables = [enemigo_1, enemigo_2, jugador_1] + lista_obstaculos
 
@@ -56,6 +83,10 @@ def nivel_1(pantalla_del_juego:object, contador:object)->None:
     RELOJ = pygame.time.Clock() 
     tiempo_actual = 0
     inicio_del_nivel = 0
+
+    #FONDO
+    #textura_fondo = pygame.image.load('Imagenes/Fondos/fondo_asfalto.png').convert_alpha()
+    #textura_fondo = pygame.transform.scale(textura_fondo, (64*18,64*13))
 
     nivel_1 = True
 
@@ -94,7 +125,7 @@ def nivel_1(pantalla_del_juego:object, contador:object)->None:
             jugador_1.direccion = 'izquierda'
             jugador_1.x -= jugador_1.velocidad
             
-        if keys[pygame.K_RIGHT] and jugador_1.x < (64*17) - jugador_1.ancho - jugador_1.velocidad and not jugador_1.chocar('derecha'):
+        if keys[pygame.K_RIGHT] and jugador_1.x < (64*18) - jugador_1.ancho - jugador_1.velocidad and not jugador_1.chocar('derecha'):
             jugador_1.direccion = 'derecha'
             jugador_1.x += jugador_1.velocidad
             
@@ -102,12 +133,15 @@ def nivel_1(pantalla_del_juego:object, contador:object)->None:
             jugador_1.direccion = 'arriba'
             jugador_1.y -= jugador_1.velocidad
             
-        if keys[pygame.K_DOWN] and jugador_1.y < (64*11) - jugador_1.alto - jugador_1.velocidad and not jugador_1.chocar('abajo'):
+        if keys[pygame.K_DOWN] and jugador_1.y < (64*13) - jugador_1.alto - jugador_1.velocidad and not jugador_1.chocar('abajo'):
             jugador_1.direccion = 'abajo'
             jugador_1.y += jugador_1.velocidad
         
         if keys[pygame.K_SPACE] and len(jugador_1.proyectiles) < jugador_1.maximo_proyectiles_simultaneos: 
             jugador_1.proyectiles = Proyectil(jugador_1)
+            sonidos.disparo_p1.play()
+            
+
     
         #DIBUJAR PANTALLA Y OBJETOS
         acciones.dibujar(pantalla_del_juego, jugador_1, lista_de_enemigos, contador, lista_obstaculos)

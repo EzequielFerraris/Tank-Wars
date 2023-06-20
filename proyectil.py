@@ -1,8 +1,5 @@
 import pygame
 
-COLOR_BALAS_AMARILLO_POR_DEFECTO = (255,255,0)
-COLOR_BALAS_BLANCAS = (255,255,255)
-
 class Proyectil():
         
     def __init__(self, tanque:object, velocidad=17):
@@ -40,20 +37,11 @@ class Proyectil():
             self.__velocidad = velocidad 
 
         ###### RECTANGULO PARA COLISIONES
-        if self.direccion == 'arriba' or self.direccion == 'abajo':
-            self.__x_rect = round(tanque.x + tanque.ancho // 2) #HACE QUE LA BALA SALGA DE LA MITAD DEL TANQUE
-            if self.direccion == 'arriba':
-                self.__y_rect = tanque.y
-            else:
-                self.__y_rect = round(tanque.y + tanque.alto)
-        else:
-            self.__y_rect = round(tanque.y) + tanque.alto // 2
-            if self.direccion == 'izquierda':
-                self.__x_rect = round(tanque.x)
-            else:
-                self.__x_rect = tanque.x + tanque.ancho     
+        self.__x_rect = self.x + 26
+        self.__y_rect = self.y + 26
+            
 
-        self.__rect = pygame.Rect(self.x_rect-6, self.y_rect-6, 12, 12)
+        self.__rect = pygame.Rect(self.x_rect, self.y_rect, 12, 12)
         
     #SETTERS Y GETTERS
     @property
@@ -121,6 +109,11 @@ class Proyectil():
     @property
     def eje(self)->str:
         return self.__eje
+    
+    @eje.setter
+    def eje(self, nuevo_eje):
+        self.__eje = nuevo_eje
+
 
     @property
     def velocidad(self)->int:
@@ -196,6 +189,6 @@ class Proyectil():
             self.imagen = pygame.transform.scale(self.imagen, (self.ancho,self.alto))
 
             pantalla.blit(self.imagen, (self.x, self.y)) 
-            self.rect = pygame.Rect(self.x_rect-6, self.y_rect-6, 12, 12)
+            self.rect = pygame.Rect(self.x_rect, self.y_rect, 12, 12)
             #DIBUJA EL RECTANGULO DE LA BALA
             #pygame.draw.rect(pantalla, (255,0,0), self.rect, 2)

@@ -11,10 +11,11 @@ class Contador():
         self.__fuente_amarillo= tuple((255,255,0))
         self.__fuente_rojo= tuple((255,0,0))
         self.__fondo_color= tuple((51,51,51))
-        self.__rect= pygame.Rect(0, 0, 17*64, 21)
+        self.__rect= pygame.Rect(0, 0, 18*64, 21)
         self.__vidas = 0 + vidas
         self.__puntaje = puntaje
-        self.__fuente = pygame.font.SysFont("Arial", 17, True)
+        self.__fuente = pygame.font.SysFont("Fonts/Trade Gothic LT Bold Condensed No. 20.ttf", 22)
+        self.__spawneo = 1
 
     @property
     def vidas(self)->object:
@@ -82,6 +83,14 @@ class Contador():
     def fuente(self)->object:
         return self.__fuente
     
+    @property
+    def spawneo(self)->object:
+        return self.__spawneo
+    
+    @spawneo.setter
+    def spawneo(self, nuevo_spawneo)->None:
+        self.__spawneo = nuevo_spawneo
+
     def dibujar(self, pantalla:object)->None:
         #FONDO DEL CONTADOR        
         pygame.draw.rect(pantalla, self.__fondo_color, self.rect)
@@ -97,5 +106,8 @@ class Contador():
         #FUSIONAMOS CON EL FONDO
         pantalla.blit(vidas_y_puntos, (900, 1))
         pantalla.blit(nombre, (10, 1))
-        pantalla.blit(tiempo, (64*8.5 - (tiempo.get_width()/2), 1))
+        pantalla.blit(tiempo, (64*9 - (tiempo.get_width()/2), 1))
+    
+        
+            
         

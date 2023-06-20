@@ -1,12 +1,13 @@
 import pygame
 import sys
+import sonidos
 from acciones import dibujar_ingreso_nombre
 from acciones import validar_string_alfanumérico
 pygame.init()
 
 #PANTALLA DE COMIENZO DEL JUEGO
 def pantalla_ingreso_nombre(pantalla:object)->None: 
-    
+
     nuevo_nombre = ''
     ingreso_nombre = True
     while ingreso_nombre == True:
@@ -21,6 +22,8 @@ def pantalla_ingreso_nombre(pantalla:object)->None:
                 if event.key == pygame.K_BACKSPACE:
                     nuevo_nombre = nuevo_nombre[:-1]
                 elif event.key == pygame.K_RETURN and len(nuevo_nombre) > 0:
+                    sonidos.confirmacion.play()
+                    sonidos.confirmacion.set_volume(0.05)
                     ingreso_nombre = False
                     return nuevo_nombre
                 elif event.key == pygame.K_SPACE:

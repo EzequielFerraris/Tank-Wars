@@ -1,4 +1,5 @@
 import pygame
+import sonidos
 
 class Tanque(): #CLASE 1
     def __init__(self, x, y, nombre, direccion_original, puntaje=0)->None:
@@ -318,6 +319,8 @@ class Tanque(): #CLASE 1
                 #pygame.draw.rect(pantalla, (255,0,0), self.rect_izquierda, 2)
         #SI LAS VIDAS SON MENORES A 0, EXPLOSION        
         else:
+            sonidos.explosion_tanque.play()
+            sonidos.explosion_tanque.set_volume(0.2)
             velocidad_explosion = 1
             self.contador += 1
             if self.contador >= velocidad_explosion and self.indice < len(self.explosion) - 1:
@@ -353,6 +356,8 @@ class Tanque(): #CLASE 1
             self.puntaje -= 100
         if self.vidas < 1:
             self.rect_principal = pygame.Rect(self.x + 10, self.y, 0, 0)
+        else:
+            sonidos.impacto_tanque.play()
 
     #DISPARAR
     def disparar(self):
@@ -361,19 +366,19 @@ class Tanque(): #CLASE 1
             for elemento in self.lista_otros_objetos:
                 if elemento.nombre != 'agua' and elemento.visible == 1 and proyectil.rect.colliderect(elemento.rect_principal):
                     elemento.recibir_impacto()
-                    if elemento.tipo == 'tanque':
+                    if elemento.tipo == 'tanque' or elemento.tipo=='boss':
                         self.puntaje += 100 
                     if proyectil in self.proyectiles:
                         self.proyectiles.pop(self.proyectiles.index(proyectil))    
        
             if proyectil.eje == 'x':
-                if proyectil.x_rect < (64*17) and proyectil.x_rect > 0:
+                if proyectil.x_rect < (64*18) and proyectil.x_rect > 0:
                     proyectil.x_rect += proyectil.velocidad
                     proyectil.x += proyectil.velocidad  #MUEVE EL PROYECTIL A SU VELOCIDAD EN EL EJE X
                 else:
                     self.proyectiles.pop(self.proyectiles.index(proyectil))  #LO REMUEVE SI SALE DE LA PANTALLA
             else:
-                if proyectil.y_rect < (64*11) and proyectil.y_rect > 0:
+                if proyectil.y_rect < (64*13) and proyectil.y_rect > 0:
                     proyectil.y_rect += proyectil.velocidad  #MUEVE EL PROYECTIL A SU VELOCIDAD EN EL EJE Y
                     proyectil.y += proyectil.velocidad 
                 else:

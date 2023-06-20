@@ -1,4 +1,5 @@
 import pygame
+import sonidos
 
 class Obstaculo(): #CLASE 1
     def __init__(self, x, y, nombre)->None:
@@ -155,8 +156,16 @@ class Obstaculo(): #CLASE 1
     
     #ALCANZADO POR UN PROYECTIL
     def recibir_impacto(self):
-        if self.nombre != 'muro':    
+        if self.nombre != 'muro':
+            if self.vidas > 1:
+                sonidos.impacto_muro.play()
+                sonidos.impacto_muro.set_volume(0.01)
+            else:
+                sonidos.destruccion_muro.play()
+                sonidos.destruccion_muro.set_volume(0.03)
             self.vidas -= 1
-                
+        else:
+            sonidos.impacto_muro_reforzado.play()
+            sonidos.impacto_muro_reforzado.set_volume(0.03)
 
 
