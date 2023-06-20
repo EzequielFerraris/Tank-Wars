@@ -14,10 +14,10 @@ class Enemigo(Tanque):
         self.velocidad = velocidad
 
     #IMAGENES:
-        self.imagen_arriba = pygame.image.load('Imagenes/Enemigo_arriba.png').convert_alpha()
-        self.imagen_abajo = pygame.image.load('Imagenes/Enemigo_abajo.png').convert_alpha()
-        self.imagen_derecha = pygame.image.load('Imagenes/Enemigo_derecha.png').convert_alpha()
-        self.imagen_izquierda = pygame.image.load('Imagenes/Enemigo_izquierda.png').convert_alpha()
+        self.imagen_arriba = pygame.image.load('Imagenes/Enemigo/Enemigo_arriba.png').convert_alpha()
+        self.imagen_abajo = pygame.image.load('Imagenes/Enemigo/Enemigo_abajo.png').convert_alpha()
+        self.imagen_derecha = pygame.image.load('Imagenes/Enemigo/Enemigo_derecha.png').convert_alpha()
+        self.imagen_izquierda = pygame.image.load('Imagenes/Enemigo/Enemigo_izquierda.png').convert_alpha()
 
     @property
     def valor_random(self)->int:

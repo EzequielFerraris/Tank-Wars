@@ -7,7 +7,7 @@ from pantalla_puntajes import pantalla_puntajes
 pygame.init()
 
 FUENTE_RESULTADO = pygame.font.Font('Fonts/Trade Gothic LT Bold Condensed No. 20.ttf', 100)
-FUENTE_CIERRE_JUEGO = pygame.font.SysFont('Fonts/Trade Gothic LT Bold Condensed No. 20.ttf', 50, True)
+FUENTE_CIERRE_JUEGO = pygame.font.SysFont('Fonts/Trade Gothic LT Bold Condensed No. 20.ttf', 50)
 FUENTE_SCORE = pygame.font.SysFont('Fonts/Trade Gothic LT Bold Condensed No. 20.ttf', 50)
 AMARILLO = (255,255,0)
 ROJO = (255,0,0)
@@ -49,8 +49,8 @@ def pantalla_de_cierre(resultado:str, pantalla:object, contador:object)->None:
         texto_cierre_juego = FUENTE_CIERRE_JUEGO.render('Press ENTER', 1, AMARILLO)
         
         pantalla.blit(text, (64*9 - (text.get_width()/2),200))
-        pantalla.blit(text2, (64*9 - (text2.get_width()/2),350))
-        pantalla.blit(texto_cierre_juego, (64*9 - (texto_cierre_juego.get_width()/2),500))
+        pantalla.blit(text2, (64*9 - (text2.get_width()/2),400))
+        pantalla.blit(texto_cierre_juego, (64*9 - (texto_cierre_juego.get_width()/2),600))
         pygame.display.update()
 
         enter_button = pygame.key.get_pressed()

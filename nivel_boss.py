@@ -50,16 +50,12 @@ def nivel_boss(pantalla_del_juego:object, contador:object)->None:
     tiempo_actual = 0
     inicio_del_nivel = 0
 
-    #FONDO
-    #textura_fondo = pygame.image.load('Imagenes/Fondos/fondo_pasto.png').convert_alpha()
-    #textura_fondo = pygame.transform.scale(textura_fondo, (64*18,64*13))
-
-
     #MUSICA
     pygame.mixer.music.load('Sonidos/Boss1.mp3')
     pygame.mixer.music.set_volume(0.2)
     pygame.mixer.music.play(-1)
 
+    #CONDICION DEL LOOP
     nivel_boss = True
 
     #LOOP PRINCIPAL

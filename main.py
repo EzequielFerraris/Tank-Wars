@@ -32,7 +32,7 @@ nombre_jugador = pantalla_ingreso_nombre(pantalla_del_juego)
 contador = Contador(3, 0, nombre_jugador, 120)
  
 #NIVELES
-"""
+
 try:
     pantalla_entre_niveles(pantalla_del_juego, contador)
     nivel_1(pantalla_del_juego, contador)
@@ -46,9 +46,5 @@ try:
     pantalla_de_cierre('victoria', pantalla_del_juego, contador)
 except:
     print("El juego ha terminado")
-"""
-nivel_boss(pantalla_del_juego, contador)
-#PANTALLA FINAL
-pantalla_de_cierre('victoria', pantalla_del_juego, contador)
 
 

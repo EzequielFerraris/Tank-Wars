@@ -110,10 +110,7 @@ def nivel_2(pantalla_del_juego:object, contador:object)->None:
     tiempo_actual = 0
     inicio_del_nivel = 0
 
-    #FONDO
-    #textura_fondo = pygame.image.load('Imagenes/Fondos/fondo_pasto.png').convert_alpha()
-    #textura_fondo = pygame.transform.scale(textura_fondo, (64*18,64*13))
-
+    #CONDICION DEL LOOP
     nivel_2 = True
 
     #LOOP PRINCIPAL

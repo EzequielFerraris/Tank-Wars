@@ -32,7 +32,7 @@ def pantalla_puntajes(pantalla:object, contador:object):
         titulo = FUENTE_TITULO_SCORE.render('TOP PLAYERS', 1, AMARILLO)
         pantalla.blit(titulo, ((64*9 - (titulo.get_width()/2)), 50))
 
-        rectangulo_scores = pygame.Rect(64*6, 160, 64*6, 64*7)
+        rectangulo_scores = pygame.Rect(64*6, 160, 64*6, 64*7.5)
         pygame.draw.rect(pantalla, (255,255,0), rectangulo_scores, 2)  
 
         for index,resultado in enumerate(lista_puntajes):
