@@ -45,12 +45,16 @@ class Contador():
     def tiempo_maximo(self)->object:
         return self.__tiempo_maximo
 
+    @tiempo_maximo.setter
+    def tiempo_maximo(self, nuevo_maximo:float)->None:
+        self.__tiempo_maximo = nuevo_maximo
+
     @property
     def tiempo(self)->object:
         return self.__tiempo
     
     @tiempo.setter
-    def tiempo(self, nuevo_tiempo)->None:
+    def tiempo(self, nuevo_tiempo:int)->None:
         nuevo_tiempo = nuevo_tiempo // 1000
         nuevo_tiempo = self.tiempo_maximo - nuevo_tiempo 
         self.__tiempo = nuevo_tiempo

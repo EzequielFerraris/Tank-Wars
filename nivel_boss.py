@@ -8,7 +8,7 @@ from enemigo import Enemigo
 from muro import Muro
 from ladrillo import Ladrillo
 from bosque import Bosque
-from pantalla_inicio import pantalla_inicio
+from pantalla_pausa import pantalla_pausa
 import acciones
 import sonidos
 
@@ -46,7 +46,8 @@ def nivel_boss(pantalla_del_juego:object, contador:object)->None:
     lista_de_objetos_chocables = [boss_final, jugador_1] + lista_obstaculos
 
     #TIEMPO
-    RELOJ = pygame.time.Clock() 
+    RELOJ = pygame.time.Clock()
+    contador.tiempo_maximo = 120 
     tiempo_actual = 0
     inicio_del_nivel = 0
 
@@ -111,6 +112,12 @@ def nivel_boss(pantalla_del_juego:object, contador:object)->None:
         if keys[pygame.K_SPACE] and len(jugador_1.proyectiles) < jugador_1.maximo_proyectiles_simultaneos: 
             jugador_1.proyectiles = Proyectil(jugador_1)
             sonidos.disparo_p1.play()
+
+        if keys[pygame.K_RETURN]:
+            sonidos.confirmacion.play()
+            sonidos.confirmacion.set_volume(0.05)
+            pygame.mixer.music.stop()
+            pantalla_pausa(pantalla_del_juego, contador)
     
         acciones.dibujar(pantalla_del_juego, jugador_1, lista_de_enemigos, contador, lista_obstaculos)
         RELOJ.tick(60)
