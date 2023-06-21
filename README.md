@@ -14,7 +14,7 @@ Las mismas establecían que debía desarrollarse un **videojuego utilizando la b
 ## Características del juego
 * Tres niveles principales, con dificultad creciente.
 * Una batalla final contra un boss que se vuelve más complicado al pasar el tiempo.
-* Música original creada por el músico Joel Ferraris.
+* Música original creada por el músico Joel Ferraris [Link](https://www.linkedin.com/in/joel-f-4101bb153/).
 * Sonidos y animaciones en mapas que recuerdan al legendario 'Battle City'.
 * Ranking de puntajes, para quienes gustan de superarse.
 
