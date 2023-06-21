@@ -35,9 +35,9 @@ Al ingresar Enter, el jugador pasa a una pantalla que muestra el nivel al que in
 ![Nivel 3](https://github.com/EzequielFerraris/Tank-Wars/blob/master/Imagenes%20README/Level_3.png)
 
 Una vez comenzado el nivel, el jugador nota que en la parte superior de la pantalla aparece una barra en la que se ven:
--Su nombre (izquierda)
--El tiempo restante (centro).
--La cantidad de vidas y el puntaje.
+* Su nombre (izquierda)
+* El tiempo restante (centro).
+* La cantidad de vidas y el puntaje.
 
 Respecto del tiempo, si el contador llega a 0 la partida se termina y el jugador pierde (pasa a una pantalla con la leyenda "Game Over" y su puntaje). Al quedar menos de un minuto, el color del temporizador pasa de amarillo a rojo.
 
