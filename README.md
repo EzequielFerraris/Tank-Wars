@@ -45,5 +45,4 @@ Si al perder o al resultar vencedor su puntaje está entre los 10 más altos, ap
 
 ![Scores](https://github.com/EzequielFerraris/Tank-Wars/blob/master/Imagenes%20README/Scores.png)
 
-![Nivel2](https://github.com/EzequielFerraris/Tank-Wars/blob/master/Imagenes%20README/Level_2.png)
 
